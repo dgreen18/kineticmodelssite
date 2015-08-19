@@ -1,0 +1,13 @@
+<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema_instance" xmlns="http://purl.org/NET/prime/" xsi:schemaLocation="http://warehouse.primekinetics.org/schema/bibliography.xsd" primeID="b00013591">
+  <author>Guner, V.</author>
+  <author>Khuong, K.S.</author>
+  <author>Leach, A.G.</author>
+  <author>Lee, P.S.</author>
+  <author>Bartberger, M.D.</author>
+  <author>Houk, K.N.</author>
+  <year>2003</year>
+  <title>A standard set of pericyclic reactions of hydrocarbons for the benchmarking of computational methods: The performance of ab initio, density functional, CASSCF, CASPT2, and CBS-QB3 methods for the prediction of activation barriers, reaction energetics, and transition state geometries</title>
+  <journal>J. Phys. Chem. A</journal>
+  <volume>107</volume>
+  <pages>11445-11459</pages>
+</bibliography>

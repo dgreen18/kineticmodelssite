@@ -1,0 +1,13 @@
+<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema_instance" xmlns="http://purl.org/NET/prime/" xsi:schemaLocation="http://warehouse.primekinetics.org/schema/bibliography.xsd" primeID="b00018516">
+  <author>Novoselov, K.P.</author>
+  <author>Shirabaikin, D.B.</author>
+  <author>Umanskii, S.Y.</author>
+  <author>Vladimirov, A.S.</author>
+  <author>Minushev, A.K.</author>
+  <author>Korkin, A.A.</author>
+  <year>2002</year>
+  <title>CHIMERA: a software tool for reaction rate calculations and kinetics and thermodynamics analysis</title>
+  <journal>J. Comp. Chem.</journal>
+  <volume>23</volume>
+  <pages>1375-1389</pages>
+</bibliography>

@@ -1,0 +1,9 @@
+<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema_instance" xmlns="http://purl.org/NET/prime/" xsi:schemaLocation="http://warehouse.primekinetics.org/schema/bibliography.xsd" primeID="b00018171">
+  <author>Blatov, I.A.</author>
+  <author>Strygin, V.V.</author>
+  <year>1999</year>
+  <title>On best possible order of convergence estimates in the collocation method and Galerkin's method for singularly perturbed boundary values problems for systems of first order ordinary differential equations</title>
+  <journal>Math. Comput.</journal>
+  <volume>68</volume>
+  <pages>683-715</pages>
+</bibliography>

@@ -1,0 +1,9 @@
+<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema_instance" xmlns="http://purl.org/NET/prime/" xsi:schemaLocation="http://warehouse.primekinetics.org/schema/bibliography.xsd" primeID="b00015927">
+  <author>Bartels, R.H.</author>
+  <author>Jezioranski, J.J.</author>
+  <year>1985</year>
+  <title>Least squares fitting using orthogonal multinomials</title>
+  <journal>ACM Trans. Math. Soft.</journal>
+  <volume>11</volume>
+  <pages>201-217</pages>
+</bibliography>

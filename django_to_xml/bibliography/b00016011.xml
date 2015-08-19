@@ -1,0 +1,9 @@
+<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema_instance" xmlns="http://purl.org/NET/prime/" xsi:schemaLocation="http://warehouse.primekinetics.org/schema/bibliography.xsd" primeID="b00016011">
+  <author>Valko, P.</author>
+  <author>Vajda, S.</author>
+  <year>1985</year>
+  <title>An extended ODE solver for sensitivity calculations</title>
+  <journal>Comput. Chem.</journal>
+  <volume>8</volume>
+  <pages>225-272</pages>
+</bibliography>

@@ -1,0 +1,11 @@
+<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema_instance" xmlns="http://purl.org/NET/prime/" xsi:schemaLocation="http://warehouse.primekinetics.org/schema/bibliography.xsd" primeID="b00017666">
+  <author>Burant, J.C.</author>
+  <author>Strain, M.C.</author>
+  <author>Scuseria, G.E.</author>
+  <author>Frisch, M.J.</author>
+  <year>1996</year>
+  <title>Analytic Energy Gradients for the Gaussian Very Fast Multipole Method (GvFMM)</title>
+  <journal>Chem. Phys. Lett.</journal>
+  <volume>248</volume>
+  <pages>43</pages>
+</bibliography>

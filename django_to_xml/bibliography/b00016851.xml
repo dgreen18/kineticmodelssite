@@ -1,0 +1,10 @@
+<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema_instance" xmlns="http://purl.org/NET/prime/" xsi:schemaLocation="http://warehouse.primekinetics.org/schema/bibliography.xsd" primeID="b00016851">
+  <author>Muller, C.</author>
+  <author>Scacchi, G.</author>
+  <author>Come, G.M.</author>
+  <year>1991</year>
+  <title>A compiler for a linear chemical notation</title>
+  <journal>Comput. Chem.</journal>
+  <volume>15</volume>
+  <pages>337-342</pages>
+</bibliography>
