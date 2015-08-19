@@ -5,7 +5,7 @@ Run this like so:
 It should dig through the Django database 
 and create PrIMe_compatible xml files for each object
 """
-
+import os
 from lxml import etree
 import string
 
@@ -18,7 +18,7 @@ from kineticmodels.models import Kinetics, Reaction, Stoichiometry, \
                                  Thermo, ThermoComment, \
                                  Source, Author, Authorship
 
-class xmlSource():
+class XmlSource():
     
     def print_source_xml(self):
         xmlns="http://purl.org/NET/prime/"
@@ -50,50 +50,71 @@ class xmlSource():
         with open(bPrimeID+'.xml', "w+") as file:
             file.write(etree.tostring(root, pretty_print=True))
 
-class xmlSpecies():
+
+class XmlSpecies():
     
+    def __init__(self, species=None):
+        if species is None:
+            print("Making demo XmlSpecies")
+            self.make_demo()
+            return
+        self.sPrimeID = species.sPrimeID
+        self.formula = species.formula
+        self.CAS = species.CAS
+        self.inchi = species.inchi
+        self.specname_set = species.specname_set
+
+    def make_demo(self):
+        "Makes a demo species"
+        self.sPrimeID = "s00010102"
+        self.formula = 'Cr27O8C2H168F45Cl2'
+        self.CAS = "3352_57_6"
+        self.inchi = 'Ch26/syflif/lshiek/4684759/Inchi'
+
     def print_species_xml(self):
         xmlns="http://purl.org/NET/prime/"
         xsi="http://www.w3.org/2001/XMLSchema_instance"
-        sPrimeID="s00010102"
+
         schemaLocation="http://warehouse.primekinetics.org/schema/species.xsd"
         NSMAP = {None: xmlns, 'xsi': xsi}
         root = etree.Element('{' + xmlns + '}chemicalSpecies', nsmap=NSMAP)
         root.attrib["{" + xsi + "}schemaLocation"] = schemaLocation
         # root.attrib["{" + xmlns + "}xsi"] = xsi
-        root.attrib["primeID"] = sPrimeID
-        formula='Cr27O8C2H168F45Cl2'
+        root.attrib["primeID"] = self.sPrimeID
+
         child3=etree.SubElement(root, 'preferredKey')
         child3.attrib["group"]="prime"
         child3.attrib["type"]="formula"
-        child3.text=formula
+        child3.text = self.formula
         child4=etree.SubElement(root, 'chemicalIdentifier')
-        CAS="3352_57_6"
-        if CAS is not None:
+
+        if self.CAS is not None:
             child4_CAS=etree.SubElement(child4, 'name')
     #         child41.attrib["source"] = source
             child4_CAS.attrib["type"]="CASRegistryNumber"
-            child4_CAS.text=CAS
-        if formula is not None:
+            child4_CAS.text = self.CAS
+        if self.formula is not None:
             child4_formula=etree.SubElement(child4, 'name')
     #         child42.attrib["source"] = source
             child4_formula.attrib["type"]='formula'
-            child4_formula.text=formula
+            child4_formula.text = self.formula
         #make list l of all names for species
-        l=['pizzazz','sparkle','elf','wonder','floo powder']
+        l = [ n.name for n in self.specname_set.all() ]
         namedict={}
         for n in range(len(l)):
             namedict["child4_{0}".format(n)]=etree.SubElement(child4, 'name')
             namedict["child4_{0}".format(n)].text=l[n]
-        inchi='Ch26/syflif/lshiek/4684759/Inchi'
-        if inchi is not None:
+
+        if self.inchi is not None:
             child4_inchi=etree.SubElement(child4, 'name')
             child4_inchi.attrib["type"]='InChI'
-            child4_inchi.text=inchi
+            child4_inchi.text = self.inchi
         child5=etree.SubElement(root, 'chemicalComposition')
         form=[]
         count=[]
-        for i in range(len(formula)):
+        formula = self.formula
+        try:
+         for i in range(len(formula)):
             if formula[i] in string.letters:
                 if formula[i+1] in string.letters:
                     continue
@@ -118,15 +139,16 @@ class xmlSpecies():
                         count.append(formula[i-1:i+1])
                     else:
                         count.append(formula[i])
+        except Exception as error:
+            log_error("Buggy formula parsing for {0!r}: {1!s}".format(formula, error))
         atomdict={}
         for n in range(len(form)):
             atomdict["child5_{0}".format(n)]=etree.SubElement(child5, 'atom')
             atomdict["child5_{0}".format(n)].attrib["symbol"]=form[n]
             atomdict["child5_{0}".format(n)].text=count[n]
-        with open(sPrimeID+'.xml', "w+") as file:
-            file.write(etree.tostring(root, pretty_print=True))
+        return(etree.tostring(root, pretty_print=True))
 
-class xmlThermo():
+class XmlThermo():
     
     def print_thermo_xml(self):
         xmlns="http://purl.org/NET/prime/"
@@ -250,7 +272,7 @@ class xmlThermo():
             file.write(etree.tostring(root, pretty_print=True))
 
 
-class xmlTransport():
+class XmlTransport():
     
     def print_transport_xml(self):
         xmlns="http://purl.org/NET/prime/"
@@ -310,7 +332,7 @@ class xmlTransport():
         with open(trPrimeID+'.xml', "w+") as file:
             file.write(etree.tostring(root, pretty_print=True))
 
-class xmlReaction():
+class XmlReaction():
     
     def print_reaction_xml(self):
         xmlns="http://purl.org/NET/prime/"
@@ -335,7 +357,7 @@ class xmlReaction():
         with open(rPrimeID+'.xml', "w+") as file:
             file.write(etree.tostring(root, pretty_print=True))
 
-class xmlKinetics():
+class XmlKinetics():
     
     def print_kinetics_xml(self):
         xmlns="http://purl.org/NET/prime/"
@@ -413,7 +435,7 @@ class xmlKinetics():
             
         
 
-class xmlModel():
+class XmlModel():
     
     def print_model_xml(self):
         xmlns="http://purl.org/NET/prime/"
@@ -482,13 +504,42 @@ class xmlModel():
         with open(mPrimeID+'.xml', "w+") as file:
             file.write(etree.tostring(root, pretty_print=True))
 
-def main(top_root):
+
+def save_all_species(root_path):
     """
-    The main function. Give it the path to the top of the database
+    Saves all the species from the django database into the database at root_path
     """
-#     with open('exporterrors.txt', "w") as errors:
-#         errors.write("Restarting import at "+time.strftime("%D %T"))
-#     print "Starting at", top_root
+    catalog_path = os.path.join(root_path, 'species', 'catalog')
+    os.path.exists(catalog_path) or os.makedirs(catalog_path)
+    for django_species in Species.objects.all():
+        xml_species = XmlSpecies(django_species)
+        file_path = os.path.join(catalog_path, '{0}.xml'.format(xml_species.sPrimeID))
+        xml = xml_species.print_species_xml()
+        with open(file_path, 'w') as out_file:
+            out_file.write(xml)
+
+error_file = 'exporterrors.txt'
+def log_error(message):
+    with open(error_file, "a") as errors:
+        errors.write(message + '\n')
+    print(message)
+
+def main(output_path):
+    """
+    The main function. Give it the path to save things to
+    """
+    import time
+    os.path.exists(output_path) or os.makedirs(output_path)
+    global error_file
+    error_file = os.path.join(output_path, 'exporterrors.txt')
+    with open(error_file, "w") as errors:
+        errors.write("Restarting import at {0}\n".format(time.strftime("%D %T")))
+
+
+    save_all_species(output_path)
+
+    log_error("All done!")
+
     
 #     for root, dirs, files in os.walk(top_root):
 #         if root.endswith('depository/bibliography'):
@@ -522,14 +573,14 @@ def main(top_root):
 #             #send this file into PrIMe database
 
 
-# if __name__ == "__main__":
-#     import argparse
-#     parser = argparse.ArgumentParser(
-#         description='Import PRIME database mirror into Django.')
-#     parser.add_argument('root',
-#                         metavar='root',
-#                         nargs=1,
-#                         help='location of the mirror on the local filesystem')
-#     args = parser.parse_args()
-#     top_root = os.path.normpath(os.path.abspath(args.root[0]))  # strip eg. a trailing '/'
-#     main(top_root)
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='Expor Django database to prime format')
+    parser.add_argument('output',
+                        metavar='output',
+                        nargs=1,
+                        help='location of where to save things')
+    args = parser.parse_args()
+    output_path = os.path.normpath(os.path.abspath(args.output[0]))  # strip eg. a trailing '/'
+    main(output_path)
